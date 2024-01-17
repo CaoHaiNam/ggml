@@ -38,11 +38,13 @@ static void ggml_log_callback_default(ggml_log_level level, const char * text, v
 // default hparams (GPT-2 117M)
 struct gpt2_hparams {
     int32_t n_vocab = 50257;
+    // n_ctx = n_position
     int32_t n_ctx   = 1024;
     int32_t n_embd  = 768;
     int32_t n_head  = 12;
     int32_t n_layer = 12;
     int32_t ftype   = 1;
+    // layer_norm_epsilon
     float   eps     = 1e-5f;
 };
 
@@ -829,6 +831,7 @@ int main(int argc, char ** argv) {
 
     gpt_params params;
     params.model = "models/gpt-2-117M/ggml-model.bin";
+    // params.model = "/home/namch/ggml/build/Cerebras-GPT-111M/ggml-model-f16.bin";
 
     if (gpt_params_parse(argc, argv, params) == false) {
         return 1;
